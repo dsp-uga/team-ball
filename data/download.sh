@@ -10,16 +10,23 @@
 
 for SMAPLE in 0 1 2 .. 19
 do
-	printf -v SMAPLE "%02d" $SMAPLE
-	wget "https://s3.amazonaws.com/neuro.datasets/challenges/neurofinder/neurofinder.00.$SMAPLE.zip"
-	unzip -q "neurofinder.00.$SMAPLE.zip" 
-	rm "neurofinder.00.$SMAPLE.zip"
+	printf -v NUM "%02d" $SMAPLE
+	wget "https://s3.amazonaws.com/neuro.datasets/challenges/neurofinder/neurofinder.00.$NUM.zip"
+	unzip -q "neurofinder.00.$NUM.zip" 
+	rm "neurofinder.00.$NUM.zip"
 done
 
-for SMAPLE in 0 1 2 .. 9
-do
-	printf -v SMAPLE "%02d" $SMAPLE
-	wget "https://s3.amazonaws.com/neuro.datasets/challenges/neurofinder/neurofinder.00.$SMAPLE.test.zip"
-	unzip -q "neurofinder.00.$SMAPLE.zip" 
-	rm "neurofinder.00.$SMAPLE.zip"
-done
+
+wget "https://s3.amazonaws.com/neuro.datasets/challenges/neurofinder/neurofinder.all.test.zip"
+unzip -q "neurofinder.all.test.zip"
+rm "neurofinder.all.test.zip"
+
+
+# for SMAPLE in 0 1 2 .. 9
+# do
+# 	printf -v NUM "%02d" $SMAPLE
+# 	wget "https://s3.amazonaws.com/neuro.datasets/challenges/neurofinder/neurofinder.00.$NUM.test.zip"
+# 	unzip -q "neurofinder.00.$NUM.test.zip" 
+
+# 	rm "neurofinder.00.$NUM.test.zip"
+# done
