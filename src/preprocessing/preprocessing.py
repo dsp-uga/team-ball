@@ -42,7 +42,7 @@ def tomask(coords):
 
 train_x = []#None #np.array([])
 train_y = []#None # np.array([])
-
+i = 0
 for sample in os.listdir( TRAIN_DIR ):
     images_glob_path =  sample + "/images/*.tiff"
     mask_json_path = sample + '/regions/regions.json'
@@ -56,19 +56,37 @@ for sample in os.listdir( TRAIN_DIR ):
 
     masks = array([tomask(s['coordinates']) for s in regions])
 
-    image = list( imgs.sum(axis=0))
-    mask = list(masks.sum(axis=0))
+    image = imgs.sum(axis=0)
+    mask = masks.sum(axis=0)
+
+    if dims[0]!= 512 or dims[1]!= 512:
+        temp_image = np.zeros((512,512))
+        temp_mask = np.zeros((512,512))
+
+        temp_image[:image.shape[0], :image.shape[1]] = image
+        temp_mask[:mask.shape[0], :mask.shape[1]] = mask
+
+        image=temp_image
+        mask = temp_mask
+
+    print( image.shape )
+    image =list( image )
+    mask = list( mask )
 
     train_x.append( image )
     train_y.append(mask)
-
+    del imgs
+    del masks
     # if( train_x is None ):
     #     train_x = image
     #     train_y = mask
     # else:
     #     train_x = np.vstack( (train_x, image) )
     #     train_y = np.vstack( (train_y, mask) )
-
+    i+=1
+    print( i )
+    # if i==5 :
+    #     break;
 
 train_x =  array(train_x)
 train_y = array(train_y)
