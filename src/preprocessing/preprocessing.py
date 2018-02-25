@@ -34,6 +34,7 @@ import argparse
 #                          "[DEFAULT: \"data/X_train_vsmall.txt\"]")
 
 TRAIN_DIR = os.path.abspath("../../data/train/")
+TEST_DIR = None
 
 def tomask(coords):
     mask = zeros(dims)
@@ -97,60 +98,3 @@ print (train_y.shape)
 np.save('X_train.npy',  train_x)
 np.save('Y_train.npy' , train_y)
 
-
-exit()
-
-files = sorted(glob('../data/neurofinder.00.00/images/image000**.tiff'))
-imgs = array([imread(f) for f in files])
-dims = imgs.shape[1:]
-
-
-
-
-image = imgs.sum(axis=0)
-mask = masks.sum(axis=0)
-
-
-def avg_noise_redction(image):
-    avg_img = np.zeros_like(image)
-    for i in range(len(image) - 2):
-        for j in range(len(image[0]) - 2):
-            avg_arr = []
-            avg_arr.extend((image[i][j], image[i, j + 1], image[i, j + 2],
-                            image[i + 1][j], image[i + 1][j + 1], image[i + 1][j + 2],
-                            image[i + 2][j], image[i + 2][j + 1], image[i + 2][j + 2]))
-            avg_pix = math.ceil(np.mean(avg_arr))
-            avg_img[i + 1][j + 1] = avg_pix
-
-    return avg_img
-
-
-def median_filtering(image):
-    med_img = np.zeros_like(image)
-    for i in range(len(image) - 2):
-        for j in range(len(image[0]) - 2):
-            avg_arr = []
-            avg_arr.extend((image[i][j], image[i, j + 1], image[i, j + 2],
-                            image[i + 1][j], image[i + 1][j + 1], image[i + 1][j + 2],
-                            image[i + 2][j], image[i + 2][j + 1], image[i + 2][j + 2]))
-            med_pix = np.median(avg_arr)
-            med_img[i + 1][j + 1] = med_pix
-
-    return med_img
-
-
-theImage = Image.fromarray(np.uint16(avg_noise_redction(imgs[0])))
-theImage_median = Image.fromarray(np.uint16(median_filtering(imgs[0])))
-theMask = Image.fromarray((np.uint8(mask)) * 255)
-
-theImage.show()
-theImage_median.show()
-theMask.show()
-
-# show the outputs
-plt.figure()
-plt.subplot(1, 2, 1)
-plt.imshow(imgs.sum(axis=0), cmap='gray')
-plt.subplot(1, 2, 2)
-plt.imshow(masks.sum(axis=0), cmap='gray')
-plt.show()
