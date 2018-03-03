@@ -22,7 +22,7 @@ def postProcess ( fileNames =None , theDic=None, output_file_name = "output.json
     if( fileNames ):
         # if images should be loaded from files do so!
         for file_name in fileNames:
-            file_name_values_dic[ file_name ] = cv2.imread(file_name, 0)
+            file_name_values_dic[ file_name ] = cv2.imread( fileNames[ file_name], 0)
     else :
 
         file_name_values_dic = theDic
@@ -37,7 +37,7 @@ def postProcess ( fileNames =None , theDic=None, output_file_name = "output.json
         #convert them to the writeable format
         temp =   []
         for i in range (1,x) :
-            temp.append(  np.argwhere(markers==i)  )
+            temp.append( list(  [int(pick[0]),int(pick[1])]  for pick in np.argwhere(markers==i)  ))
 
         # convert lists to dictionaries
         temp = [ {"coordinates": pick } for pick in temp ]
@@ -51,7 +51,7 @@ def postProcess ( fileNames =None , theDic=None, output_file_name = "output.json
         final_dic.append( temp_dic )
 
     # create json file string
-    json_dump = json.dumps( final_dic )
+    json_dump = json.dumps( final_dic,  indent=4 )
     # save the json file string
     with open( output_file_name,'w' ) as file:
         file.write(json_dump)
