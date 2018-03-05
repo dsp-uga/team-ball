@@ -33,6 +33,9 @@ import argparse
 #                     help="Path to text file containing the documents in the training set"
 #                          "[DEFAULT: \"data/X_train_vsmall.txt\"]")
 
+
+
+
 TRAIN_DIR = os.path.abspath("../../data/train/")
 TEST_DIR = None
 
