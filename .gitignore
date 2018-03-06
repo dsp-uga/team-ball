@@ -6,7 +6,8 @@
 
 data/*/*
 
- 
+output/*
+
 # ignore pycharm info 
 .idea
 .idea/*

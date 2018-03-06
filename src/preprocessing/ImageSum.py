@@ -9,11 +9,12 @@ import json
 
 class ImageSum ( preprocessor ):
 
-    def __init__(self , exportPath, trainingPath , testPath , images_size ):
+    def __init__(self , exportPath, trainingPath , testPath , images_size, importPath = None ):
         self.exportPath = exportPath
         self.traininPath = trainingPath
         self.testPath = testPath
-        self.image_size - images_size
+        self.image_size = images_size
+        self.importPath = importPath
 
     def loadSample ( self, path ):
         """
@@ -30,12 +31,30 @@ class ImageSum ( preprocessor ):
         # merge files in to one image
         image = imgs.sum(axis=0)
 
-        self.change_size( image, self.image_size )
+        image = self.change_size( image, self.image_size )
 
         print(image.shape)
 
         return image
 
+    def load_from_files(self):
+        """
+        loads images from previously preprocessed files. 
+        :return: a treplet of  ( train_x, train_y, test_dic )
+        """
+
+        if( self.importPath ):
+            train_x  = np.load( os.path.join( self.importPath , "X_train.npy" ) )
+            train_y = np.load(os.path.join( self.importPath , "Y_train.npy" ))
+
+            test_dic = {}
+
+            for file in  glob( os.path.join( self.importPath, "*.test.npy" ) ):
+                test_dic[ file.replace('.test.npy','').replace('neurofinder.','') ]  = np.load( file )
+
+            return train_x, train_y, test_dic
+
+        return None
 
     def preprocess(self):
         """
@@ -44,20 +63,25 @@ class ImageSum ( preprocessor ):
         """
         train_x = []  # None #np.array([])
         train_y = []  # None # np.array([])
-        i = 0
+
+
+        # check if there is an improt path supplied, load information from
+        if( self.importPath ):
+            return  self.load_from_files()
 
         # create the trainig set
-        for sample in os.listdir(self.traininPath):
-            images_glob_path = os.path.join( self.traininPath,    sample + "/images/*.tiff")
-            mask_json_path = os.path.join( self.traininPath, sample + '/regions/regions.json')
+        if( self.traininPath ):
+            for sample in os.listdir(self.traininPath):
+                images_glob_path = os.path.join( self.traininPath,    sample + "/images/*.tiff")
+                mask_json_path = os.path.join( self.traininPath, sample + '/regions/regions.json')
 
-            images = self.loadSample( images_glob_path )
+                images = self.loadSample( images_glob_path )
 
-            train_x.append( list( images))
+                train_x.append( list( images))
 
-            mask = self.loadRegions( mask_json_path, self.image_size  )
+                mask = self.loadRegions( mask_json_path, self.image_size  )
 
-            train_y.append( list( mask ) )
+                train_y.append( list( mask ) )
 
         # create the test set
         test_dic = {}
@@ -79,7 +103,7 @@ class ImageSum ( preprocessor ):
 
             #save the testsamples
             for key in test_dic:
-                np.save( os.path.join( self.exportPath , sample+".test.npy" ) , test_dic[key])
+                np.save( os.path.join( self.exportPath , key+".test.npy" ) , test_dic[key])
 
         return train_x , train_y , test_dic
 
