@@ -56,64 +56,21 @@ def dice_coef_loss(y_true, y_pred):
     return -dice_coef(y_true, y_pred)
 
 
-X_train_data = []
-Y_train_data = []
-X_test_data = []
-Y_test_data = []
-dataImages = []
-
-xTrainFiles =  sorted(glob.glob ("data/train/*.png"))
-for myFile in xTrainFiles:
-    image = cv2.imread (myFile,1)
-    image=cv2.resize(image, (512, 512)) 
-    X_train_data.append (image)
-np.save('X_train.npy', np.array(X_train_data))
 
 
-yTrainFiles = sorted( glob.glob ("data/train/*.png"))
-for myFile in yTrainFiles:
-    image = cv2.imread (myFile,0)
-    image=cv2.resize(image, (512, 512))
-    image=image/255 
-    Y_train_data.append (image)
-np.save('Y_train.npy', np.array(Y_train_data))
+X_train=np.load('X_train.npy')
+y_train=np.load('Y_train.npy')
+X_test=np.load('X_test.npy')
+#y_test=np.array(Y_test_data)
 
+#X_train=X_train.reshape(X_train.shape+(1,))/255
+#y_train=y_train.reshape(y_train.shape+(1,))
+#X_test=X_test.reshape(X_test.shape+(1,))
+#y_test=y_test.reshape(y_test.shape+(1,))
 
-
-xTestFiles = sorted(  glob.glob ("data/test/*.png"))
-for myFile in xTestFiles:
-    image = cv2.imread (myFile,1)
-    image=cv2.resize(image, (512, 512)) 
-    X_test_data.append (image)
-np.save('X_test.npy', np.array(X_test_data))
-
-
-yTestFiles = sorted(glob.glob ("data/test/*.png"))
-for myFile in yTestFiles:
-    image = cv2.imread (myFile,0)
-    image=cv2.resize(image, (512, 512))
-    image=image/255 
-    Y_test_data.append (image)
-np.save('Y_test.npy', np.array(Y_test_data))
-
-
-
-X_train=np.array(X_train_data)
-y_train=np.array(Y_train_data)
-X_test=np.array(X_test_data)
-y_test=np.array(Y_test_data)
-
-# X_train=X_train.reshape(X_train.shape+(1,))
-y_train=y_train.reshape(y_train.shape+(1,))
-# X_test=X_test.reshape(X_test.shape+(1,))
-y_test=y_test.reshape(y_test.shape+(1,))
-
-import cv2
-cv2.imwrite("Hello.png",X_train[0])
 
 print(X_train.shape)
 print(y_train.shape)
-print(data.shape)
 
 weight_decay=0
 
@@ -255,7 +212,7 @@ class CroppingLike2D(Layer):
 
 
 # Block 1.
-img_input = Input(shape=(512,512,3))
+img_input = Input(shape=(512,512,1))
 block1_conv1 = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1', kernel_regularizer=l2(weight_decay))(img_input)
 block1_conv2 = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2', kernel_regularizer=l2(weight_decay))(block1_conv1)
 block1_pool = MaxPooling2D((2, 2), strides=(2, 2), name='block1_pool')(block1_conv2)
@@ -294,13 +251,18 @@ score_feat1 = Conv2D(1, (3, 3), activation='linear', padding='same', name='score
 score_feat2 = Conv2D(1, (3, 3), activation='linear', padding='same', name='score_feat2', kernel_regularizer=l2(weight_decay))(block4_pool)
 score_feat3 = Conv2D(1, (3, 3), activation='linear', padding='same', name='score_feat3', kernel_regularizer=l2(weight_decay))(block3_pool)
 
+#scale_feat2 = Lambda(scaling, arguments={'ss':1},name='scale_feat3')(score_feat2)
+#scale_feat3 = Lambda(scaling, arguments={'ss': scale},name='scale_feat3')(score_feat3)
+
+scale_feat2 = Lambda(lambda x: x * 2 ,name='scale_feat2')(score_feat2)
+scale_feat3 = Lambda(lambda x: x * 2 ,name='scale_feat3')(score_feat3)
 
 upscore_feat1 = BilinearUpSampling2D(target_shape=(None, 32, 32, None), name='upscore_feat1')(score_feat1)
 
-add_1 = add([upscore_feat1, score_feat2])
+add_1 = add([upscore_feat1, scale_feat2])
 upscore_feat2 = BilinearUpSampling2D(target_shape=(None, 64, 64, None), name='upscore_feat2')(add_1)
 
-add_2 = add([upscore_feat2, score_feat3])
+add_2 = add([upscore_feat2, scale_feat3])
 upscore_feat3 = BilinearUpSampling2D(target_shape=(None, 512, 512, None), name='upscore_feat3')(add_2)
 
 output = Activation('sigmoid')(upscore_feat3)
@@ -311,13 +273,14 @@ model.compile(optimizer=Adam(lr=1e-5), loss=dice_coef_loss, metrics=[dice_coef])
 print(model.summary())
 
 # training network
-model.fit([X_train], [y_train], batch_size=16, epochs=128, shuffle=True)
+model.fit([X_train], [y_train], batch_size=4, epochs=124, shuffle=True)
+
 
 #predicting/testing model out
-predicted = model.predict(data)
-for i in range(0,len(data)):
+predicted = model.predict(X_test)
+for i in range(0,len(X_test)):
     img_temp =   predicted[i] * 255 #cv2.normalize( predicted[i] , alpha=0, beta=1 , norm_type=cv2.NORM_MINMAX, datatype=cv2.CV_32F )
-    cv2.imwrite("out/"+str(i)+".png",img_temp)
+    cv2.imwrite("test_predicted/"+str(i)+".png",img_temp)
 
 print('done')
 print(predicted.shape)
