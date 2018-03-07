@@ -40,7 +40,7 @@ def check_image(root_dir):
             # handle output file name
             point_position = find_last_point(out_path)
             if not set_img_type == "":
-                out_path = out_path[0:point_position + 1] + 'txt'
+                out_path = out_path[0:point_position + 1] + 'tiff'
             # to open a tiff file for reading:
             tif=TIFF.open(path, mode='r')
             # to read an image in the currect TIFF directory and return it as numpy array:
