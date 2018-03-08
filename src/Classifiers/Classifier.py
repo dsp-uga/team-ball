@@ -26,7 +26,7 @@ class Classifier :
         logging.info(  "Saved Model to : "+os.path.join( export_path ,  self.classifier_name+ ".h5" ))
         return
 
-    def load_model ( self , import_path  ):
+    def load_model(self , import_path):
         """
         loads model from file
         :param import_path:
@@ -36,7 +36,7 @@ class Classifier :
         logging.info("Loaded Model at : " + os.path.join(import_path, self.classifier_name + ".h5"))
         return self.trained_model
 
-    def train(self, x_train , y_train  ):
+    def train(self, x_train , y_train):
         """
         this funciton  trains the model which is defined in it's body and
         saves the model in the class for further prediction
@@ -45,5 +45,12 @@ class Classifier :
 
         return self.trained_model
 
-    def predict (self , data_dic  ):
-        return None
+    def predict(self, data_dic):
+        """
+        this function runs the prediction on the data
+        :param data_dic:
+        :return: the predicted values
+        """
+        ret = [{x: self.trained_model.predict([data_dic[x]])[0]} for x in data_dic]
+
+        return ret
