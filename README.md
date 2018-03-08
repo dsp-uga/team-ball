@@ -1,4 +1,4 @@
-# Neuron Recognition with convolutional neural network (FCN)    
+# Neuron Recognition with fully convolutional neural network (FCN)    
 
 In this project we were challenged to identify neurons in time-series image data in the testing set. The training sets contain 19 samples and the testing sets contain 9 samples. Each sample includes a variable number of time-varying TIFF images. Each sample has unique numbers and positions of the neurons. In the end, the model gives us averages of recall, prescision, inclusion, exclusion and combined to be  respectively on the test set.
 
