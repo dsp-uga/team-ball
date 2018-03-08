@@ -116,7 +116,7 @@ def UNet(input_shape,learn_rate=1e-3):
     conv10 = Conv2D(1, (1, 1), activation='sigmoid',name='conv10')(conv9)
     
     model = Model(inputs=[inputs], outputs=[conv10])
-    model.compile(optimizer=Adam(lr=1e-5), loss=dice_coef_loss)
+    model.compile(optimizer=Adam(lr=1e-5), loss=dice_coef_loss, metrics=[dice_coef])
     return model
 
 
