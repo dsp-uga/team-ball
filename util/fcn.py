@@ -63,9 +63,9 @@ y_train=np.load('Y_train.npy')
 X_test=np.load('X_test.npy')
 #y_test=np.array(Y_test_data)
 
-#X_train=X_train.reshape(X_train.shape+(1,))/255
-#y_train=y_train.reshape(y_train.shape+(1,))
-#X_test=X_test.reshape(X_test.shape+(1,))
+X_train=X_train.reshape(X_train.shape+(1,))
+y_train=y_train.reshape(y_train.shape+(1,))
+X_test=X_test.reshape(X_test.shape+(1,))
 #y_test=y_test.reshape(y_test.shape+(1,))
 
 
@@ -273,14 +273,14 @@ model.compile(optimizer=Adam(lr=1e-5), loss=dice_coef_loss, metrics=[dice_coef])
 print(model.summary())
 
 # training network
-model.fit([X_train], [y_train], batch_size=4, epochs=124, shuffle=True)
+model.fit([X_train], [y_train], batch_size=8, epochs=10240, shuffle=True)
 
 
 #predicting/testing model out
 predicted = model.predict(X_test)
 for i in range(0,len(X_test)):
     img_temp =   predicted[i] * 255 #cv2.normalize( predicted[i] , alpha=0, beta=1 , norm_type=cv2.NORM_MINMAX, datatype=cv2.CV_32F )
-    cv2.imwrite("test_predicted/"+str(i)+".png",img_temp)
+    cv2.imwrite("output/"+str(i)+".png",img_temp)
 
 print('done')
 print(predicted.shape)
