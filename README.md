@@ -17,7 +17,9 @@ purposes.
 
 ## Dependencies
 -[keras](https://keras.io/#installation)
+
 -[tensorflow](https://www.tensorflow.org/install/)
+
 -[Fully Convolutional Networks with Keras](https://github.com/JihongJu/keras-fcn)
     
     
