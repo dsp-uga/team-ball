@@ -16,8 +16,9 @@ These instructions will get you a copy of the project up and running on your loc
 purposes.
 
 ## Dependencies
- [keras](https://keras.io/#installation)
- [tensorflow](https://www.tensorflow.org/install/)
+-[keras](https://keras.io/#installation)
+-[tensorflow](https://www.tensorflow.org/install/)
+-[Fully Convolutional Networks with Keras](https://github.com/JihongJu/keras-fcn)
     
     
 ## Contributing
@@ -39,5 +40,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 * This project was completed as a part of the Data Science Practicum 2018 course at the University of Georgia
 * [Dr. Shannon Quinn](https://github.com/magsol)
  is responsible for the problem formulation and initial guidance towards solution methods.
+* We partly used provided code from [This Repository] (https://github.com/JihongJu/keras-fcn)
+It provides implementation of Fully Convolutional Networks with Keras
 * Other resources used have been cited in their corresponding wiki page. 
 
