@@ -23,13 +23,12 @@ purposes.
     
 ## Contributing
 
-There are no specific guidelines for contributing.  Feel free to send a pull request if you have
-an improvement.
+There are no specific guidelines for contributing.  Feel free to send a pull request if you have an improvement.
 
 
 ## Authors
 
-See the [contributors](https://github.com/dsp-uga/team-ball/contributors.md) file for details
+See the [CONTRIBUTORS.md](CONTRIBUTORS) file for details
 
 ## License
 
