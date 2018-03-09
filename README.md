@@ -16,8 +16,8 @@ These instructions will get you a copy of the project up and running on your loc
 purposes.
 
 ## Dependencies
- [keras] (https://keras.io/#installation)
- [tensorflow] (https://www.tensorflow.org/install/)
+ [keras](https://keras.io/#installation)
+ [tensorflow](https://www.tensorflow.org/install/)
     
     
 ## Contributing
