@@ -22,9 +22,31 @@ purposes.
 
 -[Fully Convolutional Networks with Keras](https://github.com/JihongJu/keras-fcn)
 
-### How to run
+## How to run
 To get it running
+### Main PRogram 
+    src/main.py is the main file to run the project.
+     
+Following keys are settable through command arguments :
+     
+* --epoch : sets number of epochs for which training will go ( this is applicable to UNET and FCN models )
+* --dataset : this sets the path to the training files. target folder should contain one folder per sample and they have to comply to the original dataset format
+* --testset : this is the path test samples, this folder should contain one folder per each sample and they should follow the original dataset's format
+* --model : this sets the model to either of UNET/FCN/NMF 
+* --train : if supplied training will be done 
+* --exportpath : set the path to which numpy arrays for train and test file as well as model will be saved. note that this same path will be used to load them 
+* --predict : if supplied, prediction will also be done on the data set
+* --logfile : sets the path to the logging file 
+* --preprocessor : selects the preprocessor to be applied to the dataset 
+
+A sample running command : 
     
+    $ python main.py --train --predict --exportpath="../output" --dataset="../data/train" --testset="../data/test"
+
+### Downloader 
+
+A shell script has been design to download the datasets and decompresses them. This shell code is  under data/download.sh
+
 ## Contributing
 
 There are no specific guidelines for contributing.  Feel free to send a pull request if you have an improvement.
