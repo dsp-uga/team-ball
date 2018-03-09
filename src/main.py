@@ -35,24 +35,21 @@ parser.add_argument("-t", "--train", action="store_true",
 parser.add_argument("-p", "--predict", action="store_true",
                     help='To ensure a segmentation is performed on the test set (This requires --testset to have value)')
 
-parser.add_argument("-sm", "--savemodel", action="store_true",
-                    help='Save trained model to a file')
+parser.add_argument("-e", "--epoch", default="1024",
+                    help='Sets number of epochs for which the network will be trained')
 
-parser.add_argument("-mf", "--modelfile", default=None,
-                    help='Path where model should be saved (this is a directory, models can have multiple files)')
-
-parser.add_argument("-ll", "--loglevel", default="info",
-                    help='Sets the level for logs that should appear in the log file ( debug, info, warn, error)[DEFAULT : Info]')
-
+parser.add_argument("-b", "--batch", default="4",
+                    help='sets the batch size for training the models')
 
 parser.add_argument("-pp", "--preprocessor", default="sum",
                     help='Chooses the Preprcessor to be applied ')
 
 parser.add_argument("-ep", "--exportpath", default="sum",
-                    help='Chooses the Preprcessor to be applied ')
+                    help='Chooses the path to export model and numpy files')
 
 parser.add_argument("-lf", "--logfile", default="log.log",
                     help="Path to the log file, this file will contain the log records")
+
 
 # compile arguments
 args = parser.parse_args()
@@ -103,7 +100,7 @@ else:
 # --------------- train model!
 if( args.train ):
     logging.info("Starting training")
-    model = the_Classifier.train(x_train=x_train, y_train=y_train , epochs=1)
+    model = the_Classifier.train(x_train=x_train, y_train=y_train , epochs=args.epoch ,batch_size=args.batch)
     the_Classifier.saveModel( args.exportpath )
     logging.info("Done with training")
 else :
