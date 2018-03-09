@@ -36,7 +36,7 @@ See the [contributors](./CONTRIBUTORS.md) file for details
 
 ## License
 
-This project is licensed under the MIT License - see the [License](./LICENSE.md) file for details
+This project is licensed under the MIT License - see the [License](./LICENSE) file for details
 
 ## Acknowledgments
 
