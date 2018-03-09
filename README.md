@@ -1,4 +1,6 @@
-# Neuron Recognition with fully convolutional neural network (FCN)    
+# team-ball
+
+# Neuron Recognition  
 
 In this project we were challenged to identify neurons in time-series image data in the testing set. The training sets contain 19 samples and the testing sets contain 9 samples. Each sample includes a variable number of time-varying TIFF images. Each sample has unique numbers and positions of the neurons. In the end, the model gives us averages of recall, prescision, inclusion, exclusion and combined to be  respectively on the test set.
 
@@ -8,14 +10,38 @@ In this project we were challenged to identify neurons in time-series image data
 
 The image on the left represents the time-varying images in the training and testing data. The image on the right is the extract "regions of interest" (the pink regions on the right) that correspond to individual neurons, which is the goal to draw circles around the regions that contain neurons.
 
-## Preprocessing    
-1.
-2. Using NMF to reduce the dimensions.
+## Getting Started
 
-## Model Training and Testing    
+These instructions will get you a copy of the project up and running on your local machine for development and testing 
+purposes.
 
-## Collect recognition results    
-Save results for the 9 samples in the test set by .json form. Each consists of all the coordinates surrounding predicted neurons in the sample.    
+### Prerequisites
+
+Dependencies are managed using the [Conda](https://conda.io/docs/) package manager.  You'll need to install Conda to get setup.
     
-## Running
+    
+## Contributing
+
+There are no specific guidelines for contributing.  Feel free to send a pull request if you have
+an improvement.
+
+## Versioning
+
+We use the [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) 
+workflow to organize releases and development of new features.
+
+## Authors
+
+See the [contributors](https://github.com/dsp-uga/team-ball/contributors.md) file for details
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+
+## Acknowledgments
+
+* This project was completed as a part of the Data Science Practicum 2018 course at the University of Georgia
+* [Dr. Shannon Quinn](https://github.com/magsol)
+ is responsible for the problem formulation and initial guidance towards solution methods.
+* Other resources used have been cited in their corresponding wiki page. 
 
