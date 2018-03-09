@@ -14,6 +14,9 @@ import keras_fcn.backend as K1
 from keras.utils import conv_utils
 from keras.engine.topology import Layer
 from keras.engine import InputSpec
+import logging
+from keras.models import load_model
+import os
 
 
 class BilinearUpSampling2D(Layer):
@@ -196,6 +199,18 @@ class FCN_Classifier( Classifier ):
         return - FCN_Classifier.dice_coef(y_true, y_pred)
     def dice_coef_loss2(y_true, y_pred):
         return - FCN_Classifier.dice_coef(y_true, y_pred)
+
+    def load_model(self , import_path):
+        """
+        overrides the load method to add the costum object
+        :param import_path: directory from which model has to be loaded 
+    
+        """
+        self.trained_model =load_model(os.path.join(import_path, self.classifier_name + ".h5"), custom_objects={'BilinearUpSampling2D': BilinearUpSampling2D,
+                                                                                                                'dice_coef_loss': FCN_Classifier.dice_coef_loss,
+                                                                                                                'dice_coef': FCN_Classifier.dice_coef})
+        logging.info("Loaded Model at : " + os.path.join(import_path, self.classifier_name + ".h5"))
+
 
 
     def train (self, x_train, y_train , epochs= 1200 , batch_size=4):
