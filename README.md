@@ -40,7 +40,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 * This project was completed as a part of the Data Science Practicum 2018 course at the University of Georgia
 * [Dr. Shannon Quinn](https://github.com/magsol)
  is responsible for the problem formulation and initial guidance towards solution methods.
-* We partly used provided code from [This Repository] (https://github.com/JihongJu/keras-fcn)
+* We partly used provided code from [This Repository](https://github.com/JihongJu/keras-fcn).
 It provides implementation of Fully Convolutional Networks with Keras
 * Other resources used have been cited in their corresponding wiki page. 
 
