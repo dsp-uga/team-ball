@@ -21,7 +21,9 @@ purposes.
 -[tensorflow](https://www.tensorflow.org/install/)
 
 -[Fully Convolutional Networks with Keras](https://github.com/JihongJu/keras-fcn)
-    
+
+### How to run
+To get it running
     
 ## Contributing
 
@@ -30,11 +32,11 @@ There are no specific guidelines for contributing.  Feel free to send a pull req
 
 ## Authors
 
-See the [CONTRIBUTORS.md](CONTRIBUTORS) file for details
+See the [contributors](./CONTRIBUTORS.md) file for details
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+This project is licensed under the MIT License - see the [License](./LICENSE.md) file for details
 
 ## Acknowledgments
 
