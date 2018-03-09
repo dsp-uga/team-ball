@@ -15,9 +15,9 @@ The image on the left represents the time-varying images in the training and tes
 These instructions will get you a copy of the project up and running on your local machine for development and testing 
 purposes.
 
-### Prerequisites
-
-Dependencies are managed using the [Conda](https://conda.io/docs/) package manager.  You'll need to install Conda to get setup.
+## Dependencies
+ keras (https://keras.io/#installation)
+ tensorflow (https://www.tensorflow.org/install/)
     
     
 ## Contributing
