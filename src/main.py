@@ -11,6 +11,7 @@ from src.preprocessing import ImageSum
 from src.postprocessing.postprocessing import postProcess
 from src.Classifiers.Classifier import Classifier
 from src.Classifiers.FCN import FCN_Classifier
+from src.Classifiers.UNet_Classifier import UNET_Classifier
 
 description = 'CSCI 8630 Project 3 by Team Ball.  ' \
               'This program contains segmentation models to segment neurons from a nouron firing contest at :' \
@@ -26,7 +27,7 @@ parser.add_argument("-ts", "--testset", default=None,
                     help='Path to the testing data [DEFAULT: None]')
 
 parser.add_argument("-m", "--model", default="FCN",
-                    help='model to be used in the segmentation [DEFAULT: "FCN"]')
+                    help='model to be used in the segmentation can be UNET/FCN/NMF [DEFAULT: "FCN"]')
 
 parser.add_argument("-t", "--train", action="store_true",
                     help='To ensure a model is being trained')
@@ -73,6 +74,8 @@ else:
 # set the set classifier :
 if (args.model == "FCN"):
     the_Classifier = FCN_Classifier ( )
+elif args.model == "UNET":
+    the_Classifier = UNET_Classifier()
 else:
     the_Classifier = Classifier()
 
@@ -141,14 +144,4 @@ if( args.predict  and x_test ):
 #
 # postProcess(fileNames=filenames, output_file_name="output_unet.json")
 #
-#
-#
-# # TODO : add file loading
-#
-# # TODO : add preprocessing
-#
-# # TODO : add training ( optional )
-#
-# # TODO : add prediction
-#
-# # TODO : add postprocesing
+
