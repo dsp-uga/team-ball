@@ -2,7 +2,7 @@
 this class is the FCN ( Fully Convelutional Network ) implementation as a classifier
 """
 
-from src.Classifiers import Classifier
+from src.Classifiers.Classifier import Classifier
 from keras.models import Model
 from keras.layers import Input, merge, concatenate, Conv2D, MaxPooling2D, Activation, UpSampling2D, Dropout, Conv2DTranspose, UpSampling2D, Lambda
 from keras.optimizers import Adam
@@ -148,7 +148,7 @@ class FCN_Classifier( Classifier ):
     """
     This class provides the implementation for the FCN classifier
     """
-    def __init__(self , train_data=None , import_path = None, export_path = None, loss_function = "dice_coef" ):
+    def __init__(self , loss_function = "dice_coef" ):
         self.trained_model = None
         self.classifier_name = "FCN"
         self.data = None
@@ -206,6 +206,10 @@ class FCN_Classifier( Classifier ):
         :return:
         """
         weight_decay = 0
+
+        x_train = x_train.reshape(x_train.shape + (1,))
+        y_train = y_train.reshape(y_train.shape + (1,))
+
 
         # Block 1
         img_input = Input(shape=(512, 512, 1))

@@ -65,9 +65,9 @@ class ImageSum ( preprocessor ):
         train_y = []  # None # np.array([])
 
 
-        # check if there is an improt path supplied, load information from
-        if( self.importPath ):
-            return  self.load_from_files()
+        # # check if there is an improt path supplied, load information from
+        # if( self.importPath ):
+        #     return  self.load_from_files()
 
         # create the trainig set
         if( self.traininPath ):

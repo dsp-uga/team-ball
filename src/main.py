@@ -79,12 +79,18 @@ else:
 # -------------- Loading the data
 
 # try to load pre calculated data :
-x_train, y_train, x_test = the_preprocessor.load_from_files()
+try:
+
+    x_train, y_train, x_test = the_preprocessor.load_from_files()
+
+except FileNotFoundError:
+    # if there is no file to load set them as null, they will be loaded autiomatically
+    x_train, y_train, x_test = None, None, None
 
 # check if there is no data, read them from input ( this will take time! )
-if (not x_train):
+if  ( x_train is None):
     logging.info("Loading data from original data")
-    x_train, y_train, x_test = the_preprocessor.load_from_files( )
+    x_train, y_train, x_test = the_preprocessor.preprocess()
     logging.info("Done loading data from original data")
 else:
     logging.info("data loaded from pre-calculated files")
@@ -95,6 +101,7 @@ else:
 if( args.train ):
     logging.info("Starting training")
     model = the_Classifier.train(x_train=x_train, y_train=y_train , epochs=1)
+    the_Classifier.saveModel( args.exportpath )
     logging.info("Done with training")
 else :
     model = the_Classifier.load_model( args.exportpath )
