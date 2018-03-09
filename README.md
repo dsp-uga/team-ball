@@ -23,8 +23,9 @@ purposes.
 -[Fully Convolutional Networks with Keras](https://github.com/JihongJu/keras-fcn)
 
 ## How to run
-To get it running
-### Main PRogram 
+
+#### Main Program 
+
     src/main.py is the main file to run the project.
      
 Following keys are settable through command arguments :
@@ -44,7 +45,7 @@ A sample running command :
     
     $ python main.py --train --predict --exportpath="../output" --dataset="../data/train" --testset="../data/test"
 
-### Downloader 
+#### Downloader 
 
 A shell script has been design to download the datasets and decompresses them. This shell code is  under data/download.sh
 
