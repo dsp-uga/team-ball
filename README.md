@@ -38,6 +38,7 @@ Following keys are settable through command arguments :
 * --predict : if supplied, prediction will also be done on the data set
 * --logfile : sets the path to the logging file 
 * --preprocessor : selects the preprocessor to be applied to the dataset 
+* --bach : sets the batch size for the training models, this only applies to UNET and FCN
 
 A sample running command : 
     
