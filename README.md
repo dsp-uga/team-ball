@@ -16,8 +16,8 @@ These instructions will get you a copy of the project up and running on your loc
 purposes.
 
 ## Dependencies
- keras (https://keras.io/#installation)
- tensorflow (https://www.tensorflow.org/install/)
+ [keras] (https://keras.io/#installation)
+ [tensorflow] (https://www.tensorflow.org/install/)
     
     
 ## Contributing
@@ -25,10 +25,6 @@ purposes.
 There are no specific guidelines for contributing.  Feel free to send a pull request if you have
 an improvement.
 
-## Versioning
-
-We use the [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) 
-workflow to organize releases and development of new features.
 
 ## Authors
 
