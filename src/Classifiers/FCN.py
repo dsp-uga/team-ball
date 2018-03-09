@@ -300,7 +300,7 @@ class FCN_Classifier( Classifier ):
 
         model = Model(inputs=[img_input], outputs=output)
 
-        model.compile(optimizer=Adam(lr=1e-5), loss=self.loss_function, metrics=[self.metrics_function])
+        model.compile(optimizer=Adam(lr=1e-5), loss=dice_coef_loss, metrics=[dice_coef])
         print(model.summary())
 
         # training network
